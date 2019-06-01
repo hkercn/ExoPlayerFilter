@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.daasuu.epf.filter.AlphaFrameFilter;
 import com.daasuu.epf.filter.GlBilateralFilter;
 import com.daasuu.epf.filter.GlBoxBlurFilter;
 import com.daasuu.epf.filter.GlBulgeDistortionFilter;
@@ -51,7 +52,8 @@ public enum FilterType {
     VIGNETTE,
     FILTER_GROUP_SAMPLE,
     SPHERE_REFRACTION,
-    BITMAP_OVERLAY_SAMPLE;
+    BITMAP_OVERLAY_SAMPLE,
+    ALPHA_FRAME;
 
 
     public static List<FilterType> createFilterList() {
@@ -75,6 +77,7 @@ public enum FilterType {
         filters.add(CGA_COLORSPACE);
         filters.add(SHARP);
         filters.add(BITMAP_OVERLAY_SAMPLE);
+        filters.add(ALPHA_FRAME);
 
         return filters;
     }
@@ -128,6 +131,8 @@ public enum FilterType {
                 return glSharpenFilter;
             case BITMAP_OVERLAY_SAMPLE:
                 return new GlBitmapOverlaySample(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round));
+            case ALPHA_FRAME:
+                return new AlphaFrameFilter();
             default:
                 return new GlFilter();
         }
